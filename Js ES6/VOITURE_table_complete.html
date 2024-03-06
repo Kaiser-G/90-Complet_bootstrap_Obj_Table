@@ -123,25 +123,82 @@
       	--------------------------------------->
   <script>
 
-    function GetAjax() { }
+    function GetAjax(reponse) {
+      let myObj = JSON.parse(reponse);
+
+      //création de new class
+
+      let tab = new Table();
+      tab.id_zone = "zone";
+      tab.class_table = "table table-dark table_hover";
+
+
+      //pour les fenetres Modal Bootstrap (objet JSON) rajoute data-bs-toggle modal etc...
+      tab.BS_toggle_modal = {
+        attribut: "data-bs-toggle",
+        valeur: "modal"
+      };
+      tab.BS_target_vue = {
+        attribut: "data-bs-target",
+        valeur: "#frmVue"
+      };
+      tab.BS_target_modif = {
+        attribut: "data-bs-target",
+        valeur: "#frmModif"
+      }
+      tab.BS_target_suppr = {
+        attribut: "data-bs-target",
+        valeur: "#frmSuppr"
+      };
+
+
+      //data = les données
+
+      tab.data = myObj.voitures.records;
+      tab.header = ["Code", "Marque", "Couleur", "Cylindrée"];
+      tab.class_modif = "";//class sans Bootstrap
+      tab.class_suppr = "";
+      tab.class_vue = "";
+
+      //BS
+      tab.icone_vue = "fas fa-eye fa-sm";//class pour les icones
+      tab.icone_modif = "fas fa-pencil fa-sm";
+      tab.icone_suppr = "btn-sm fas fa-trash fa-sm";
+
+      //Les méthodes
+      tab.fonction_modif = modifRegion;
+      tab.fonction_suppr = supprRegion;
+      tab.fonction_vue = vueRegion;
+
+      //exo 2
+      tab.BS_class_vue = "btn btn-danger";//Class Bootstrap
+      tab.BS_class_modif = "btn btn-success";
+      tab.BS_class_sppr = "btn btn-warning";
+      tab.id_tbody = "idTable";
+      tab.append = true;
+
+
+      tab.separateur = ",";
+      tab.generer();
+    }
 
 
 
     function RetourAjax(reponse) {
       //alert("Retour " + reponse);
       // Version améliorée qui gére l'affichage du resultat
-      let Liste;
-      let myObj = JSON.parse(reponse);
+      // let Liste;
+      // let myObj = JSON.parse(reponse);
 
-      Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
+      // Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
 
-      for (let i in myObj.voitures.records) {
-        Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
+      // for (let i in myObj.voitures.records) {
+      //   Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
 
-      }
-      Liste += "</table>";
+      // }
+      // Liste += "</table>";
 
-      document.getElementById("reponse").innerHTML = Liste;
+      // document.getElementById("reponse").innerHTML = Liste;
     }
 
     function ErreurAjax(reponse) {
@@ -191,67 +248,20 @@
     }
 
 
+    function erreur(reponse) {
+      alert("Erreur Ajax " + reponse);
+    }
 
-
-
+    function afficher_Liste() {
+      // Liste des voitures
+      get(url, GetAjax, erreur);
+    }
 
 
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
-      //création de new class
 
-      let tab = new Table();
-      tab.id_zone = "zone";
-      tab.class_table = "table table-dark table_hover";
-
-
-      //pour les fenetres Modal Bootstrap (objet JSON) rajoute data-bs-toggle modal etc...
-      tab.BS_toggle_modal = {
-        attribut: "data-bs-toggle",
-        valeur: "modal"
-      };
-      tab.BS_target_vue = {
-        attribut: "data-bs-target",
-        valeur: "#frmVue"
-      };
-      tab.BS_target_modif = {
-        attribut: "data-bs-target",
-        valeur: "#frmModif"
-      }
-      tab.BS_target_suppr = {
-        attribut: "data-bs-target",
-        valeur: "#frmSuppr"
-      };
-
-
-      //data = les données
-
-      tab.data = get(url, RetourAjax, ErreurAjax);
-      tab.header = ["Code", "Marque", "Couleur", "Cylindrée"];
-      tab.class_modif = "";//class sans Bootstrap
-      tab.class_suppr = "";
-      tab.class_vue = "";
-
-      //BS
-      tab.icone_vue = "fas fa-eye fa-sm";//class pour les icones
-      tab.icone_modif = "fas fa-pencil fa-sm";
-      tab.icone_suppr = "btn-sm fas fa-trash fa-sm";
-
-      //Les méthodes
-      tab.fonction_modif = modifRegion;
-      tab.fonction_suppr = supprRegion;
-      tab.fonction_vue = vueRegion;
-
-      //exo 2
-      tab.BS_class_vue = "btn btn-danger";//Class Bootstrap
-      tab.BS_class_modif = "btn btn-success";
-      tab.BS_class_sppr = "btn btn-warning";
-      tab.id_tbody = "idTable";
-      tab.append = true;
-
-
-      tab.separateur = ",";
-      tab.generer();
+      afficher_Liste();
 
 
 

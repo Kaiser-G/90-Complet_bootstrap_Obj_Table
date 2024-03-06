@@ -16,12 +16,10 @@
 </head>
 
 <body>
-  <button id="btnGo">Go</button>
   <div id="message"></div>
+  <button id="btnGo">Nouveau</button>
   <div id="reponse"></div>
 
-
-  <h1>Exercice 2 (80 test_table_complete.html et 80 Table_ES6.js)</h1>
 
   <div id="zone"></div>
 
@@ -124,8 +122,13 @@
       		Nos fichiers JS  
       	--------------------------------------->
   <script>
+
+    function GetAjax() { }
+
+
+
     function RetourAjax(reponse) {
-      alert("Retour " + reponse);
+      //alert("Retour " + reponse);
       // Version améliorée qui gére l'affichage du resultat
       let Liste;
       let myObj = JSON.parse(reponse);
@@ -196,6 +199,7 @@
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
       //création de new class
+
       let tab = new Table();
       tab.id_zone = "zone";
       tab.class_table = "table table-dark table_hover";
@@ -221,10 +225,9 @@
 
 
       //data = les données
-      tab.data = [[1, "Centre Val de Loire"],
-      [2, "Bretagne"], [3, "Languedoc"], [4, "Corse"], [5, "Alsace"], [6, "Auvergne"], [8, "Rhone Alpes"], [9, "Normandie"], [11, "POLOGNE"]];
 
-      tab.header = ["Code", "Nom"];
+      tab.data = get(url, RetourAjax, ErreurAjax);
+      tab.header = ["Code", "Marque", "Couleur", "Cylindrée"];
       tab.class_modif = "";//class sans Bootstrap
       tab.class_suppr = "";
       tab.class_vue = "";
@@ -243,10 +246,6 @@
       tab.BS_class_vue = "btn btn-danger";//Class Bootstrap
       tab.BS_class_modif = "btn btn-success";
       tab.BS_class_sppr = "btn btn-warning";
-      // tab.BS_toggle_modal = "";
-      // tab.BS_target_vue = "";
-      // tab.BS_target_modif = "";
-      // tab.BS_target_suppr = "";
       tab.id_tbody = "idTable";
       tab.append = true;
 

@@ -157,7 +157,7 @@
         </div>
 
         <div class="modal-footer">
-          <button id="btnSuppr" type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
+          <button id="btnSupprOui" type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Non</button>
         </div>
       </div>
@@ -387,13 +387,15 @@
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
 
-      //peut servir dans les fonction pour faire mise a jour de la table
+      //peut servir dans les fonctions pour faire mise a jour de la table
       afficher_Liste();
 
+      /////////////////////////////////////////////////////////////////////////////////////////
+      //ajouter
       //bouton enregistrer dans la modal nouveau
       let btnajout = document.getElementById("btnAjoutEnreg");
       btnajout.addEventListener("click", () => {
@@ -402,8 +404,8 @@
         //afficher_Liste(); affiche 2 tableaux....
       }, false);
 
-
-
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //modifier
       //bouton enregistrer dans la modal modif
       let btnEnreg = document.getElementById("btnModifEnreg");
       btnEnreg.addEventListener("click", () => {
@@ -411,18 +413,22 @@
         let code = document.getElementById("txtcodeModif").value;
         let params = Get_zones_modif();
         put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
-
-
-        //bouton oui dans la fenetre modal supprimer id=btnSuppr
-        let btnSupp = document.getElementById("btnSuppr");
-        btnSupp.addEventListener("click", () => {
-          del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
-        }, false);
-
-
-
       }, false);
-    });
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //supprimer
+      //bouton oui dans la fenetre modal supprimer id=btnSupprOui
+      let btnSupp = document.getElementById("btnSupprOui");
+      btnSupp.addEventListener("click", () => {
+        //ne fonctionne pas
+        let valeurs = e.target.value.split(",");
+        let code = document.getElementById("txtCodeSuppr").value = valeurs[0];
+        del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
+      }, false);
+
+
+
+    }, false);
+
   </script>
 </body>
 

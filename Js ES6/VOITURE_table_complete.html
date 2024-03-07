@@ -16,20 +16,60 @@
 </head>
 
 <body>
-  <div id="message"></div>
-  <br>
-  <button id="btnGo" class="btn btn-primary">Nouveau</button>
-  <br>
-  <div id="reponse"></div>
-  <br>
+  <div class="container-fluid">
+    <div id="message"></div>
+    <br>
+    <button id="btnAjout" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#frmAjout">Nouveau</button>
+    <br>
+    <!-- <div id="reponse"></div> -->
+    <br>
 
 
-  <div id="zone"></div>
+    <div id="zone"></div>
+  </div>
+
+
+
+  <!--Pour les fenetres modal-->
+
+
+  <!--Fenetre modal Ajout-->
+
+
+  <div class="modal fade" id="frmAjout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter nouvelle voiture</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="form-floating mt-3 mb-3">
+          <input type="text" class="form-control" id="txtMarqueAjout" placeholder="Enter marque" name="marqueAjout">
+          <label for="pwd">Marque</label>
+        </div>
+        <div class="form-floating mt-3 mb-3">
+          <input type="text" class="form-control" id="txtCouleurAjout" placeholder="Enter couleur" name="couleurAjout">
+          <label for="pwd">Couleur</label>
+        </div>
+        <div class="form-floating mt-3 mb-3">
+          <input type="text" class="form-control" id="txtCylindreeAjout" placeholder="Enter cylindree"
+            name="cylindreeAjout">
+          <label for="pwd">Cylindrée</label>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btnAjoutEnreg" type="button" class="btn btn-success" data-bs-dismiss="modal">Enregistrer</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
 
-  <!--Pour la fenetre modal-->
+
 
   <!--Fenetre modal VUE-->
   <div class="modal fade" id="frmVue" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,7 +107,8 @@
     </div>
   </div>
 
-  <!--Fentre modal modif-->
+
+  <!--Fenetre modal modif-->
   <div class="modal fade" id="frmModif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -95,7 +136,7 @@
         </div>
 
         <div class="modal-footer">
-          <button id="btnModifEnreg" type="button" class="btn btn-success">Enregistrer</button>
+          <button id="btnModifEnreg" type="button" class="btn btn-success" data-bs-dismiss="modal">Enregistrer</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
@@ -118,7 +159,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
-          <button type="button" class="btn btn-danger">Non</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Non</button>
         </div>
       </div>
     </div>
@@ -255,7 +296,7 @@
     //bouton enregistrer dans la fenetre modal
     //id = btnModifEnreg
 
-    function RetourAjax(reponse) {
+    function RetourAjax_modif() {
       alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
     }
 
@@ -268,7 +309,7 @@
       return JSON.stringify(obj);
     }
 
-    function Erreur_Ajax(reponse) {
+    function Erreur_Ajax_modif(reponse) {
       alert("Erreur Ajax ");
     }
 
@@ -300,6 +341,7 @@
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
 
+      //peut servir dans les fonction pour faire mise a jour de la table
       afficher_Liste();
 
 
@@ -310,7 +352,7 @@
         alert("Modif enregistré");
         let code = document.getElementById("txtcodeModif").value;
         let params = Get_zones_modif();
-        put(url + "/" + code, params, RetourAjax, Erreur_Ajax);
+        put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
         // $('#frmModif').on('hide.bs.modal', function () {
         //   $('#btnModifEnreg').trigger('focus')
         // })

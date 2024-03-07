@@ -35,12 +35,11 @@
 
   <!--Fenetre modal Ajout-->
 
-
   <div class="modal fade" id="frmAjout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ajouter nouvelle voiture</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter une nouvelle voiture</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -158,7 +157,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
+          <button id="btnSuppr" type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Non</button>
         </div>
       </div>
@@ -191,6 +190,13 @@
     //creation du tableau
     function GetAjax(reponse) {
       let myObj = JSON.parse(reponse);
+
+
+      // // Efface la zone et ajoute la zone de recherche
+      document.getElementById("zone").innerHTML = "";
+      document.getElementById("zone").innerHTML =
+        "<div class='form-inline'> <label for='txtRech'>Recherche&nbsp;&nbsp; </label> <input type='text' class='form-control' id='txtRech' name='txtRech' placeholder='saisir le début de votre recherche'>&nbsp; <i class='fas fa-search' id='btnsearch'></i> </div>";
+
 
       //création de new class
       let tab = new Table();
@@ -283,9 +289,39 @@
 
     //Pour les modal
 
+    //Function Ajout nouvelle voiture
+    //Sur le bouton enregistrer de la fenetre modal Nouveau avec id="btnAjoutEnreg"
+    function RetourVoiture_ajout() {
+      alert("Nouvelle voirure ajoutée");
+      afficher_Liste();
+    }
+
+
+    function Get_zones_ajout() {
+      // Au format JSON
+      let obj = {};
+      obj.marque = document.getElementById("txtMarqueAjout").value;
+      obj.couleur = document.getElementById("txtCouleurAjout").value;
+      obj.cylindree = document.getElementById("txtCylindreeAjout").value;
+      return JSON.stringify(obj);
+    }
+
+    function Erreur_Ajax_ajout(reponse) {
+      alert("Erreur Ajax ");
+
+    }
+
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////
     //function_modif
     function modifVoiture(e) {
-      // alert("Click sur modif region");
+      //alert("Click sur modif voiture");
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeModif").value = valeurs[0];
       document.getElementById("txtMarqueModif").value = valeurs[1];
@@ -298,6 +334,7 @@
 
     function RetourAjax_modif() {
       alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
+      afficher_Liste();
     }
 
     function Get_zones_modif() {
@@ -328,21 +365,42 @@
       document.getElementById("txtCylindreeVue").value = valeurs[3];
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     //fonction_suppr
+
+    function RetourAjax_suppr(reponse) {
+      alert("Supprimer");
+    }
+
+    function Erreur_Ajax_suppr(reponse) {
+      alert("Erreur de la suppression");
+    }
+
+
+
+
     function supprVoiture(e) {
-      // alert("Click sur supp region");
+      alert("Click sur supp voiture");
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeSuppr").value = valeurs[0];
     }
 
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
 
       //peut servir dans les fonction pour faire mise a jour de la table
       afficher_Liste();
+
+      //bouton enregistrer dans la modal nouveau
+      let btnajout = document.getElementById("btnAjoutEnreg");
+      btnajout.addEventListener("click", () => {
+        let params = Get_zones_ajout();
+        post(url, params, RetourVoiture_ajout, Erreur_Ajax_ajout);
+        //afficher_Liste(); affiche 2 tableaux....
+      }, false);
 
 
 
@@ -353,18 +411,16 @@
         let code = document.getElementById("txtcodeModif").value;
         let params = Get_zones_modif();
         put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
-        // $('#frmModif').on('hide.bs.modal', function () {
-        //   $('#btnModifEnreg').trigger('focus')
-        // })
+
+
+        //bouton oui dans la fenetre modal supprimer id=btnSuppr
+        let btnSupp = document.getElementById("btnSuppr");
+        btnSupp.addEventListener("click", () => {
+          del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
+        }, false);
 
 
 
-
-
-        // let btn = document.getElementById("btnGo");
-
-        // btn.addEventListener("click", () => {
-        //   get(url + "/", RetourAjax, ErreurAjax)
       }, false);
     });
   </script>

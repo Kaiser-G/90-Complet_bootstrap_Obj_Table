@@ -77,7 +77,7 @@
         </div>
 
         <div class="form-floating mb-3 mt-3">
-          <input type="text" class="form-control" id="txtCodeModif" placeholder="Enter code" name="codeModif">
+          <input type="text" class="form-control" id="txtCodeModif" placeholder="Enter code" name="codeModif" readonly>
           <label for="email">Code</label>
         </div>
         <div class="form-floating mt-3 mb-3">
@@ -95,7 +95,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-success">Enregistrer</button>
+          <button id="btnModifEnreg" type="button" class="btn btn-success">Enregistrer</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
@@ -252,6 +252,32 @@
       document.getElementById("txtCylindreeModif").value = valeurs[3];
     }
 
+    //bouton enregistrer dans la fenetre modal
+    //id = btnModifEnreg
+
+    function RetourAjax(reponse) {
+      alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
+    }
+
+    function Get_zones_modif() {
+      // Au format JSON
+      let obj = {};
+      obj.marque = document.getElementById("txtMarqueModif").value;
+      obj.couleur = document.getElementById("txtCouleurModif").value;
+      obj.cylindree = document.getElementById("txtCylindreeModif").value;
+      return JSON.stringify(obj);
+    }
+
+    function Erreur_Ajax(reponse) {
+      alert("Erreur Ajax ");
+    }
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //function_vue
     function vueVoiture(e) {
       let valeurs = e.target.value.split(",");
@@ -278,13 +304,26 @@
 
 
 
+      //bouton enregistrer dans la modal modif
+      let btnEnreg = document.getElementById("btnModifEnreg");
+      btnEnreg.addEventListener("click", () => {
+        alert("Modif enregistré");
+        let code = document.getElementById("txtcodeModif").value;
+        let params = Get_zones_modif();
+        put(url + "/" + code, params, RetourAjax, Erreur_Ajax);
+        // $('#frmModif').on('hide.bs.modal', function () {
+        //   $('#btnModifEnreg').trigger('focus')
+        // })
 
 
-      // let btn = document.getElementById("btnGo");
 
-      // btn.addEventListener("click", () => {
-      //   get(url + "/", RetourAjax, ErreurAjax)
-      // }, false);
+
+
+        // let btn = document.getElementById("btnGo");
+
+        // btn.addEventListener("click", () => {
+        //   get(url + "/", RetourAjax, ErreurAjax)
+      }, false);
     });
   </script>
 </body>

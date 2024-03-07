@@ -17,8 +17,11 @@
 
 <body>
   <div id="message"></div>
-  <button id="btnGo">Nouveau</button>
+  <br>
+  <button id="btnGo" class="btn btn-primary">Nouveau</button>
+  <br>
   <div id="reponse"></div>
+  <br>
 
 
   <div id="zone"></div>
@@ -34,7 +37,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Consultation</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-warning" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="form-floating mb-3 mt-3">
@@ -58,7 +61,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
         </div>
       </div>
     </div>
@@ -92,8 +95,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="button" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-success">Enregistrer</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
     </div>
@@ -114,7 +117,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Oui</button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
           <button type="button" class="btn btn-danger">Non</button>
         </div>
       </div>
@@ -144,7 +147,7 @@
       		Nos fichiers JS  
       	--------------------------------------->
   <script>
-
+    //creation du tableau
     function GetAjax(reponse) {
       let myObj = JSON.parse(reponse);
 
@@ -187,14 +190,14 @@
       tab.icone_suppr = "btn-sm fas fa-trash fa-sm";
 
       //Les méthodes
-      tab.fonction_modif = modifRegion;
-      tab.fonction_suppr = supprRegion;
-      tab.fonction_vue = vueRegion;
+      tab.fonction_modif = modifVoiture;
+      tab.fonction_suppr = supprVoiture;
+      tab.fonction_vue = vueVoiture;
 
       //exo 2
-      tab.BS_class_vue = "btn btn-danger";//Class Bootstrap
-      tab.BS_class_modif = "btn btn-success";
-      tab.BS_class_sppr = "btn btn-warning";
+      tab.BS_class_vue = "btn btn-success";//Class Bootstrap
+      tab.BS_class_modif = "btn btn-primary";
+      tab.BS_class_sppr = "btn btn-danger";
       tab.id_tbody = "idTable";
       tab.append = true;
 
@@ -202,6 +205,15 @@
       tab.separateur = ",";
       tab.generer();
     }
+    function erreur(reponse) {
+      alert("Erreur Ajax " + reponse);
+    }
+
+    function afficher_Liste() {
+      // Liste des voitures
+      get(url, GetAjax, erreur);
+    }
+
 
 
 
@@ -228,52 +240,35 @@
 
 
 
-    //Pour le tableau
+    //Pour les modal
 
     //function_modif
-    function modifRegion(e) {
+    function modifVoiture(e) {
       // alert("Click sur modif region");
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeModif").value = valeurs[0];
       document.getElementById("txtMarqueModif").value = valeurs[1];
       document.getElementById("txtCouleurModif").value = valeurs[2];
       document.getElementById("txtCylindreeModif").value = valeurs[3];
-
-
     }
 
     //function_vue
-    function vueRegion(e) {
+    function vueVoiture(e) {
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeVue").value = valeurs[0];
       document.getElementById("txtMarqueVue").value = valeurs[1];
       document.getElementById("txtCouleurVue").value = valeurs[2];
       document.getElementById("txtCylindreeVue").value = valeurs[3];
-
-      // let txt = document.getElementById("txtCodeVue").value = valeurs[0];
-      // document.getElementById("txtLibelleVue").value = valeurs[1];
     }
 
     //fonction_suppr
-    function supprRegion(e) {
+    function supprVoiture(e) {
       // alert("Click sur supp region");
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeSuppr").value = valeurs[0];
-      document.getElementById("txtLibelleSuppr").value = valeurs[1];
-      // for (let i = 0; i < valeurs.length; i++) {
-      //     alert("Supp " + valeurs[i]);
-      // }
     }
 
 
-    function erreur(reponse) {
-      alert("Erreur Ajax " + reponse);
-    }
-
-    function afficher_Liste() {
-      // Liste des voitures
-      get(url, GetAjax, erreur);
-    }
 
 
     // Programme PRINCIPAL

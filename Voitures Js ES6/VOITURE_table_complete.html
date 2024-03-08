@@ -374,11 +374,12 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //fonction_suppr
 
-    function RetourAjax_suppr(reponse) {
+    function RetourAjax_suppr(e) {
       alert("Supprimer");
+      afficher_Liste();
     }
 
-    function Erreur_Ajax_suppr(reponse) {
+    function Erreur_Ajax_suppr(e) {
       alert("Erreur de la suppression");
     }
 
@@ -430,8 +431,7 @@
       //supprimer
       //bouton oui dans la fenetre modal supprimer id=btnSupprOui
       let btnSupp = document.getElementById("btnSupprOui");
-      btnSupp.addEventListener("click", () => {
-        //ne fonctionne pas
+      btnSupp.addEventListener("click", (e) => {
         let valeurs = e.target.value.split(",");
         let code = document.getElementById("txtCodeSuppr").value;
         del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);

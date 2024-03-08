@@ -360,6 +360,12 @@
       alert("Erreur Ajax ");
     }
 
+    // function enregistrer_modif(code) {
+    //   let params = Get_zones_modif();
+
+    //   put(url + "/" + code, params, RetourAjaxModif, Erreur_Ajax_modi);
+    // }
+
 
 
 
@@ -423,7 +429,7 @@
       btnEnreg.addEventListener("click", (e) => {
         alert("Modif enregistré");
         let valeurs = e.target.value.split(",");
-        let code = document.getElementById("txtcodeModif").value;
+        let code = document.getElementById("txtCodeModif").value;
         console.log(code);
         let params = Get_zones_modif();
         console.log(params);

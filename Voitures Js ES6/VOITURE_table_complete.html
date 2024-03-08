@@ -40,6 +40,8 @@
 
 
   <footer id="idFooter"></footer>
+
+
   <!--Pour les fenetres modal-->
 
 
@@ -202,7 +204,6 @@
     function GetAjax(reponse) {
       let myObj = JSON.parse(reponse);
 
-
       // // Efface la zone et ajoute la zone de recherche
       document.getElementById("zone").innerHTML = "";
       document.getElementById("zone").innerHTML =
@@ -235,14 +236,13 @@
 
 
       //data = les données
-
       tab.data = myObj.voitures.records;
       tab.header = ["Code", "Marque", "Couleur", "Cylindrée"];
       tab.class_modif = "";//class sans Bootstrap
       tab.class_suppr = "";
       tab.class_vue = "";
 
-      //BS
+      //Les icones BS pour les boutons
       tab.icone_vue = "fas fa-eye fa-sm";//class pour les icones
       tab.icone_modif = "fas fa-pencil fa-sm";
       tab.icone_suppr = "btn-sm fas fa-trash fa-sm";
@@ -252,12 +252,12 @@
       tab.fonction_suppr = supprVoiture;
       tab.fonction_vue = vueVoiture;
 
-      //exo 2
+      //Les class BS
       tab.BS_class_vue = "btn btn-success";//Class Bootstrap
       tab.BS_class_modif = "btn btn-primary";
       tab.BS_class_sppr = "btn btn-danger";
       tab.id_tbody = "idTable";
-      tab.append = true;
+      tab.append = false;//mettre false ecrase le tableau
 
 
       tab.separateur = ",";
@@ -273,23 +273,9 @@
     }
 
 
-
-
     function RetourAjax(reponse) {
       //alert("Retour " + reponse);
-      // Version améliorée qui gére l'affichage du resultat
-      // let Liste;
-      // let myObj = JSON.parse(reponse);
 
-      // Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
-
-      // for (let i in myObj.voitures.records) {
-      //   Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
-
-      // }
-      // Liste += "</table>";
-
-      // document.getElementById("reponse").innerHTML = Liste;
     }
 
     function ErreurAjax(reponse) {
@@ -303,7 +289,8 @@
     //Function Ajout nouvelle voiture
     //Sur le bouton enregistrer de la fenetre modal Nouveau avec id="btnAjoutEnreg"
     function RetourVoiture_ajout() {
-      alert("Nouvelle voirure ajoutée");
+      //alert("Nouvelle voirure ajoutée");
+      //document.getElementById("message") = "Nouvelle voiture ajoutée";
       afficher_Liste();
     }
 
@@ -322,8 +309,6 @@
 
     }
 
-
-
     /////////////////////////////////////////////////////////////////////////////////
     //function_modif pour le tableau pas touch
     function modifVoiture(e) {
@@ -336,13 +321,10 @@
     }
 
 
-
-
     //bouton enregistrer dans la fenetre modal
     //id = btnModifEnreg
-
     function RetourAjax_modif(e) {
-      alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
+      //alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
       afficher_Liste();
     }
 
@@ -360,17 +342,6 @@
       alert("Erreur Ajax ");
     }
 
-    // function enregistrer_modif(code) {
-    //   let params = Get_zones_modif();
-
-    //   put(url + "/" + code, params, RetourAjaxModif, Erreur_Ajax_modi);
-    // }
-
-
-
-
-
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //function_vue
     function vueVoiture(e) {
@@ -385,7 +356,7 @@
     //fonction_suppr
 
     function RetourAjax_suppr(e) {
-      alert("Supprimer");
+      //alert("Supprimer");
       afficher_Liste();
     }
 
@@ -394,7 +365,7 @@
     }
 
     function supprVoiture(e) {
-      alert("Click sur supp voiture");
+      // alert("Click sur supp voiture");
       let valeurs = e.target.value.split(",");
       document.getElementById("txtCodeSuppr").value = valeurs[0];
     }
@@ -419,7 +390,6 @@
       btnajout.addEventListener("click", () => {
         let params = Get_zones_ajout();
         post(url, params, RetourVoiture_ajout, Erreur_Ajax_ajout);
-        //afficher_Liste(); affiche 2 tableaux....
       }, false);
 
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -427,12 +397,8 @@
       //bouton enregistrer dans la modal modif
       let btnEnreg = document.getElementById("btnModifEnreg");
       btnEnreg.addEventListener("click", (e) => {
-        alert("Modif enregistré");
-        let valeurs = e.target.value.split(",");
         let code = document.getElementById("txtCodeModif").value;
-        console.log(code);
         let params = Get_zones_modif();
-        console.log(params);
         put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
       }, false);
       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,9 +410,6 @@
         let code = document.getElementById("txtCodeSuppr").value;
         del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
       }, false);
-
-
-
     }, false);
 
   </script>

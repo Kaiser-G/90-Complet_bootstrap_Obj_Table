@@ -313,11 +313,6 @@
 
 
 
-
-
-
-
-
     /////////////////////////////////////////////////////////////////////////////////
     //function_modif
     function modifVoiture(e) {
@@ -411,7 +406,9 @@
       btnEnreg.addEventListener("click", () => {
         alert("Modif enregistré");
         let code = document.getElementById("txtcodeModif").value;
+        console.log("Test modif code " + code);
         let params = Get_zones_modif();
+        console.log("Test modif " + params);
         put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
       }, false);
       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -421,7 +418,7 @@
       btnSupp.addEventListener("click", () => {
         //ne fonctionne pas
         let valeurs = e.target.value.split(",");
-        let code = document.getElementById("txtCodeSuppr").value = valeurs[0];
+        let code = document.getElementById("txtCodeSuppr").value;
         del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
       }, false);
 

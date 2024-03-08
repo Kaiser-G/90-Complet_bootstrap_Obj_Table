@@ -199,7 +199,7 @@
       	--------------------------------------->
   <script>
     //creation du tableau
-    function GetAjax(reponse) {
+    function RetourGetAjax(reponse) {
       let myObj = JSON.parse(reponse);
 
 
@@ -263,33 +263,18 @@
       tab.separateur = ",";
       tab.generer();
     }
-    function erreur(reponse) {
-      alert("Erreur Ajax " + reponse);
-    }
+    /////////////////////////////////////////////////////////////////////
+    //affiche le tableau
 
     function afficher_Liste() {
       // Liste des voitures
-      get(url, GetAjax, erreur);
+      Obj_AJAX.Cle = "";
+      Obj_AJAX.get(RetourGetAjax, ErreurAjax);
+
     }
 
-
-
-
     function RetourAjax(reponse) {
-      //alert("Retour " + reponse);
-      // Version améliorée qui gére l'affichage du resultat
-      // let Liste;
-      // let myObj = JSON.parse(reponse);
-
-      // Liste = "<table><tr><th>Code</th><th>Marque</th><th>Couleur</th><th>Cylindree</th><th>Actions</th></tr>";
-
-      // for (let i in myObj.voitures.records) {
-      //   Liste += "<tr><td>" + myObj.voitures.records[i][0] + "</td><td>" + myObj.voitures.records[i][1] + "</td><td>" + myObj.voitures.records[i][2] + "</td><td>" + myObj.voitures.records[i][3] + "</td><td><button>Modifier</button><button>Supprimer</button></td></tr>"
-
-      // }
-      // Liste += "</table>";
-
-      // document.getElementById("reponse").innerHTML = Liste;
+      //tab.generer();
     }
 
     function ErreurAjax(reponse) {
@@ -378,19 +363,25 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //fonction_suppr
 
-    function RetourAjax_suppr(e) {
-      alert("Supprimer");
-      afficher_Liste();
-    }
-
-    function Erreur_Ajax_suppr(e) {
-      alert("Erreur de la suppression");
-    }
-
     function supprVoiture(e) {
       alert("Click sur supp voiture");
       let valeurs = e.target.value.split(",");
-      document.getElementById("txtCodeSuppr").value = valeurs[0];
+      let reponse = confirm(
+        "Êtes-vous certain de vouloir supprimer cette voiture ?"
+      );
+      if (reponse) {
+        Obj_AJAX.Cle = valeurs[0]; // Recupération du code à supprimer
+        Obj_AJAX.del(retourAjaxSuppr, erreur);
+      }
+    }
+    function retourAjaxSuppr(reponse) {
+      // Liste des voitures
+      afficher_Liste();
+      generer_alert("danger", "Element bien supprimé");
+    }
+
+    function erreur(reponse) {
+      alert("Erreur Ajax " + reponse);
     }
 
 
@@ -399,9 +390,9 @@
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
       //recuperation du header et du footer
-      loadHTML("idHeader", "../Header_footer/HEADER.html");
+      let header = new loadHTML("idHeader", "../Header_footer/HEADER.html");
       let footer = new loadHTML("idFooter", "../Header_footer/FOOTER.html");
-
+      header.load();
       footer.load();
       //peut servir dans les fonctions pour faire mise a jour de la table
       afficher_Liste();

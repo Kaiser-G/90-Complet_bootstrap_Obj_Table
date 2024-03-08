@@ -8,7 +8,21 @@
 </head>
 
 <body>
+    <header id="idHeader"></header>
+    <h1>Page d'accueil</h1>
+    <footer id="idFooter"></footer>
+    <!--JAVASCRIPT-->
+    <script src="./Js/js_html.js"></script>
+    <script src="./Voitures Js ES6/Js/js_html.js"></script>
 
+
+    <script>
+        window.addEventListener('load', (event) => {
+            //recuperation du header et du footer
+            loadHTML("idHeader", "../Header_footer/HEADER.html");
+            loadHTML("idFooter", "../Header_footer/FOOTER.html");
+        }, false);
+    </script>
 </body>
 
 </html>

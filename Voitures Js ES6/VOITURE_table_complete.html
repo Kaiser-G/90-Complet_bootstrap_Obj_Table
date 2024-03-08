@@ -16,6 +16,8 @@
 </head>
 
 <body>
+  <header id="idHeader"></header>
+  <h1>Voitures sans class</h1>
   <div class="container-fluid">
     <div id="message"></div>
     <br>
@@ -29,7 +31,7 @@
   </div>
 
 
-
+  <footer id="idFooter"></footer>
   <!--Pour les fenetres modal-->
 
 
@@ -166,6 +168,7 @@
 
 
   <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+  <script src="./Js/js_html.js"></script>
   <script src="./Js/80table_ES6.js"></script>
   <script src="./Js/init.js"></script>
   <script src="./Js/ajax_Js_ES6.js"></script>
@@ -385,6 +388,10 @@
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Programme PRINCIPAL
     window.addEventListener('load', (event) => {
+      //recuperation du header et du footer
+      loadHTML("idHeader", "../Header_footer/HEADER.html");
+      loadHTML("idFooter", "../Header_footer/FOOTER.html");
+
 
       //peut servir dans les fonctions pour faire mise a jour de la table
       afficher_Liste();

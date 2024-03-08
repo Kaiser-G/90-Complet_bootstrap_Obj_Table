@@ -373,12 +373,25 @@
         Obj_AJAX.Cle = valeurs[0]; // Recupération du code à supprimer
         Obj_AJAX.del(retourAjaxSuppr, erreur);
       }
+
+
+      document.getElementById("txtCodeSuppr").value = valeurs[0];
+
     }
     function retourAjaxSuppr(reponse) {
       // Liste des voitures
       afficher_Liste();
-      generer_alert("danger", "Element bien supprimé");
+
+      if (reponse === "1") {
+        alert("Voiture supprimée")
+        document.getElementById("message").innerHTML = "Voiture supprimée";
+
+      } else {
+        document.getElementById("message").innerHTML = " Voiture non supprimée"
+
+      }
     }
+
 
     function erreur(reponse) {
       alert("Erreur Ajax " + reponse);
@@ -414,7 +427,7 @@
       btnEnreg.addEventListener("click", (e) => {
         alert("Modif enregistré");
         let valeurs = e.target.value.split(",");
-        let code = document.getElementById("txtcodeModif").value;
+        let code = document.getElementById("txtCodeModif").value;
         console.log(code);
         let params = Get_zones_modif();
         console.log(params);
@@ -425,10 +438,29 @@
       //bouton oui dans la fenetre modal supprimer id=btnSupprOui
       let btnSupp = document.getElementById("btnSupprOui");
       btnSupp.addEventListener("click", (e) => {
-        let valeurs = e.target.value.split(",");
-        let code = document.getElementById("txtCodeSuppr").value;
-        del(url + "/" + code, RetourAjax_suppr, Erreur_Ajax_suppr);
+        code = document.getElementById("txtCodeSuppr").value;
+        let ajax = new Ajax_Es6(url);
+        ////////NE FONCTIONNE PAS ERREUR///////////////////////////////////////////////////
+        ajax.cle = code;
+        ajax.del(retourAjaxSuppr, erreur);
+
+
+        alert("Click sur supp voiture");
+
+        // ajax.Cle = valeurs[0]; // Recupération du code à supprimer
+        // ajax.del(retourAjaxSuppr, erreur);
+
+
+
+
+
       }, false);
+
+
+
+
+
+
 
 
 

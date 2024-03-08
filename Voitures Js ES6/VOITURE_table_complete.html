@@ -325,7 +325,7 @@
 
 
     /////////////////////////////////////////////////////////////////////////////////
-    //function_modif
+    //function_modif pour le tableau pas touch
     function modifVoiture(e) {
       //alert("Click sur modif voiture");
       let valeurs = e.target.value.split(",");
@@ -335,24 +335,28 @@
       document.getElementById("txtCylindreeModif").value = valeurs[3];
     }
 
+
+
+
     //bouton enregistrer dans la fenetre modal
     //id = btnModifEnreg
 
-    function RetourAjax_modif() {
+    function RetourAjax_modif(e) {
       alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
       afficher_Liste();
     }
 
-    function Get_zones_modif() {
+    function Get_zones_modif(e) {
       // Au format JSON
       let obj = {};
+      obj.code = document.getElementById("txtCodeModif").value;
       obj.marque = document.getElementById("txtMarqueModif").value;
       obj.couleur = document.getElementById("txtCouleurModif").value;
       obj.cylindree = document.getElementById("txtCylindreeModif").value;
       return JSON.stringify(obj);
     }
 
-    function Erreur_Ajax_modif(reponse) {
+    function Erreur_Ajax_modif(e) {
       alert("Erreur Ajax ");
     }
 
@@ -382,9 +386,6 @@
     function Erreur_Ajax_suppr(e) {
       alert("Erreur de la suppression");
     }
-
-
-
 
     function supprVoiture(e) {
       alert("Click sur supp voiture");
@@ -419,12 +420,13 @@
       //modifier
       //bouton enregistrer dans la modal modif
       let btnEnreg = document.getElementById("btnModifEnreg");
-      btnEnreg.addEventListener("click", () => {
+      btnEnreg.addEventListener("click", (e) => {
         alert("Modif enregistré");
+        let valeurs = e.target.value.split(",");
         let code = document.getElementById("txtcodeModif").value;
-        console.log("Test modif code " + code);
+        console.log(code);
         let params = Get_zones_modif();
-        console.log("Test modif " + params);
+        console.log(params);
         put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
       }, false);
       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

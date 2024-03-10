@@ -14,33 +14,31 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
+<style>
+  body {
+    background-color: aquamarine !important;
+  }
+</style>
 
 <body>
   <header id="idHeader"></header>
   <br>
-  <h1>Voitures avec class</h1>
+  <br>
+  <br>
+  <h1 class="text-center">Voitures avec class</h1>
   <br>
   <div class="container-fluid">
-    <!-- <div id="message" class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div> -->
     <div id="message"></div>
     <br>
     <button id="btnAjout" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#frmAjout">Nouveau</button>
     <br>
-    <!-- <div id="reponse"></div> -->
     <br>
-
-
     <div id="zone"></div>
   </div>
 
 
   <footer id="idFooter"></footer>
-  <!--Pour les fenetres modal-->
+  <!-----------------Pour les fenetres modal------------------------------>
 
 
   <!--Fenetre modal Ajout-->
@@ -74,10 +72,6 @@
       </div>
     </div>
   </div>
-
-
-
-
 
 
   <!--Fenetre modal VUE-->
@@ -206,7 +200,7 @@
       // // Efface la zone et ajoute la zone de recherche
       document.getElementById("zone").innerHTML = "";
       document.getElementById("zone").innerHTML =
-        "<div class='form-inline'> <label for='txtRech'>Recherche&nbsp;&nbsp; </label> <input type='text' class='form-control' id='txtRech' name='txtRech' placeholder='saisir le début de votre recherche'>&nbsp; <i class='fas fa-search' id='btnsearch'></i> </div>";
+        "<div class='form-inline'> <label for='txtRech'><strong>Recherche</strong>&nbsp;&nbsp; </label><input type='text' class='form-control' id='txtRech' name='txtRech' placeholder='saisir le début de votre recherche'>&nbsp;</div><br>";
 
 
       //création de new class
@@ -347,10 +341,6 @@
     }
 
 
-
-
-
-
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //function_vue
     function vueVoiture(e) {
@@ -449,14 +439,6 @@
       //   // ajax.Cle = valeurs[0]; // Recupération du code à supprimer
       //   // ajax.del(retourAjaxSuppr, erreur);
       // }, false);
-
-
-
-
-
-
-
-
 
     }, false);
 

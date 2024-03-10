@@ -21,7 +21,7 @@
   <h1>Voitures avec class</h1>
   <br>
   <div class="container-fluid">
-    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <!-- <div id="message" class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>Holy guacamole!</strong> You should check in on some of those fields below.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -153,7 +153,7 @@
   </div>
 
   <!--Fenetre modal SUPPR-->
-  <div class="modal fade" id="frmSuppr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="frmSuppr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -172,7 +172,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
@@ -288,8 +288,9 @@
     //Function Ajout nouvelle voiture
     //Sur le bouton enregistrer de la fenetre modal Nouveau avec id="btnAjoutEnreg"
     function RetourVoiture_ajout() {
-      alert("Nouvelle voirure ajoutée");
+      //alert("Nouvelle voiture ajoutée");
       afficher_Liste();
+      document.getElementById("message").innerHTML = "Nouvelle voiture ajoutée";
     }
 
 
@@ -321,14 +322,13 @@
     }
 
 
-
-
     //bouton enregistrer dans la fenetre modal
     //id = btnModifEnreg
 
     function RetourAjax_modif(e) {
-      alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax");
+      //alert("Voiture bien modifiée avec le code : entrée fonction RetourAjax" + e);
       afficher_Liste();
+      document.getElementById("message").innerHTML = "Votre modification a été enregistré";
     }
 
     function Get_zones_modif(e) {
@@ -343,6 +343,7 @@
 
     function Erreur_Ajax_modif(e) {
       alert("Erreur Ajax ");
+      document.getElementById("message").innerHTML = "Votre modification n'a pas été enregistré";
     }
 
 
@@ -375,7 +376,7 @@
       }
 
 
-      document.getElementById("txtCodeSuppr").value = valeurs[0];
+      // document.getElementById("txtCodeSuppr").value = valeurs[0];
 
     }
     function retourAjaxSuppr(reponse) {
@@ -425,36 +426,29 @@
       //bouton enregistrer dans la modal modif
       let btnEnreg = document.getElementById("btnModifEnreg");
       btnEnreg.addEventListener("click", (e) => {
-        alert("Modif enregistré");
-        let valeurs = e.target.value.split(",");
+        //alert("Modif enregistré");
         let code = document.getElementById("txtCodeModif").value;
-        console.log(code);
         let params = Get_zones_modif();
-        console.log(params);
-        put(url + "/" + code, params, RetourAjax_modif, Erreur_Ajax_modif);
+        Obj_AJAX.Cle = code;
+        Obj_AJAX.put(params, RetourAjax_modif, Erreur_Ajax_modif);
       }, false);
       /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       //supprimer
       //bouton oui dans la fenetre modal supprimer id=btnSupprOui
-      let btnSupp = document.getElementById("btnSupprOui");
-      btnSupp.addEventListener("click", (e) => {
-        code = document.getElementById("txtCodeSuppr").value;
-        let ajax = new Ajax_Es6(url);
-        ////////NE FONCTIONNE PAS ERREUR///////////////////////////////////////////////////
-        ajax.cle = code;
-        ajax.del(retourAjaxSuppr, erreur);
-
-
-        alert("Click sur supp voiture");
-
-        // ajax.Cle = valeurs[0]; // Recupération du code à supprimer
-        // ajax.del(retourAjaxSuppr, erreur);
-
-
-
-
-
-      }, false);
+      // let btnSupp = document.getElementById("btnSupprOui");
+      // btnSupp.addEventListener("click", (e) => {
+      //   //code = document.getElementById("txtCodeSuppr").value;
+      //   // console.log(code);
+      //   //let ajax = new Ajax_Es6(url);
+      //   // Obj_AJAX.Cle = valeurs[0]; // Recupération du code à supprimer
+      //   // Obj_AJAX.del(retourAjaxSuppr, erreur);
+      //   ////////NE FONCTIONNE PAS ERREUR///////////////////////////////////////////////////
+      //   // ajax.cle = code.valeurs[0];
+      //   // ajax.del(retourAjaxSuppr, erreur);
+      //   // alert("Click sur supp voiture");
+      //   // ajax.Cle = valeurs[0]; // Recupération du code à supprimer
+      //   // ajax.del(retourAjaxSuppr, erreur);
+      // }, false);
 
 
 
